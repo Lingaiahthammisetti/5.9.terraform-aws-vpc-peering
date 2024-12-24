@@ -76,7 +76,7 @@ resource "aws_subnet" "database" { #first name is public[0], second anme is publ
 #In Terraform, the aws_db_subnet_group resource is used to designate a collection of subnets where an RDS instance can be provisioned.
 
 resource "aws_db_subnet_group" "default" {
-    name = local.resource_name
+    name = "${local.resource_name}"
     subnet_ids = aws_subnet.database[*].id
 
     tags = merge(
@@ -91,9 +91,9 @@ resource "aws_db_subnet_group" "default" {
 
 resource "aws_eip" "nat" {
     domain = "vpc"
-    tags = {
-        Name = "Expense-eip"
-    }
+    # tags = {
+    #     Name = "Expense-eip"
+    # }
 }
 resource "aws_nat_gateway" "nat" {
     allocation_id = aws_eip.nat.id
