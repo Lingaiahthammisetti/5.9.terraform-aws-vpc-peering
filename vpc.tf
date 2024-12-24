@@ -76,7 +76,7 @@ resource "aws_subnet" "database" { #first name is public[0], second anme is publ
 #In Terraform, the aws_db_subnet_group resource is used to designate a collection of subnets where an RDS instance can be provisioned.
 
 resource "aws_db_subnet_group" "default" {
-
+   #Name = "${local.resource_name}"
     subnet_ids = aws_subnet.database[*].id
 
     tags = merge(
