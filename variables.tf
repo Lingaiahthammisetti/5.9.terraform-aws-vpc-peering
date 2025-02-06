@@ -97,7 +97,7 @@ variable "is_peering_required" {
   type = bool
   default = false
 }
-variable "accepter_vpc_id" {
+variable "acceptor_vpc_id" {
   type = string
   default = ""
 }
