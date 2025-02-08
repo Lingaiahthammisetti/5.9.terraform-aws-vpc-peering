@@ -105,31 +105,3 @@ variable "vpc_peering_tags" {
   type = map
   default = { }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

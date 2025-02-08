@@ -11,7 +11,7 @@ resource "aws_vpc" "main" {
        }
    )
 }
-resource "aws_internet_gateway" "gw" {
+resource "aws_internet_gateway" "igw" {
     vpc_id = aws_vpc.main.id
 
     tags = merge(
@@ -108,7 +108,7 @@ resource "aws_nat_gateway" "nat" {
     )
  # To ensure proper ordering, it is recommended to add an explicit dependency.
  # on the Internet Gateway for the VPC.
- depends_on = [aws_internet_gateway.gw] # this is explicit dependency.
+ depends_on = [aws_internet_gateway.igw] # this is explicit dependency.
 
 }
 
@@ -123,7 +123,7 @@ resource "aws_route_table" "public" {
         }
     )
 }
-## public Route Table##
+## private Route Table##
 resource "aws_route_table" "private" {
     vpc_id = aws_vpc.main.id
     tags = merge(
@@ -134,7 +134,7 @@ resource "aws_route_table" "private" {
         }
     )
 }
-## public Route Table##
+## database Route Table##
 resource "aws_route_table" "database" {
     vpc_id = aws_vpc.main.id
     tags = merge(
@@ -150,7 +150,7 @@ resource "aws_route_table" "database" {
 resource "aws_route" "public_route" {
     route_table_id  = aws_route_table.public.id
     destination_cidr_block = "0.0.0.0/0"
-    gateway_id  = aws_internet_gateway.gw.id
+    gateway_id  = aws_internet_gateway.igw.id
 }
 ## private Routes ##
 resource "aws_route" "private_route_nat" {
