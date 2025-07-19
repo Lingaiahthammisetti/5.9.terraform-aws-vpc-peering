@@ -21,6 +21,7 @@ resource "aws_internet_gateway" "igw" {
             Name = local.resource_name
         }
     )
+    depends_on = [aws_instance.frontend] # ensure EC2s are destroyed first
 }
 
 ##  Public Subnet   ##
